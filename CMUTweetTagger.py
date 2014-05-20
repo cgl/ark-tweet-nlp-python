@@ -8,6 +8,7 @@ results will contain a list of lists (one per tweet) of triples, each triple rep
 """
 import subprocess
 import shlex
+import os
 
 # The only relavent source I've found is here:
 # http://m1ked.com/post/12304626776/pos-tagger-for-twitter-successfully-implemented-in
@@ -15,8 +16,8 @@ import shlex
 # useful (but not much).
 
 # NOTE this command is directly lifted from runTagger.sh
-RUN_TAGGER_CMD = "java -XX:ParallelGCThreads=2 -Xmx500m -jar ark-tweet-nlp-0.3.2.jar"
-
+FILE_DIR = os.path.dirname(__file__)
+RUN_TAGGER_CMD = "java -XX:ParallelGCThreads=2 -Xmx500m -jar %s" % os.path.join(FILE_DIR, "ark-tweet-nlp-0.3.2.jar")
 
 def _split_results(rows):
     """Parse the tab-delimited returned lines, modified from: https://github.com/brendano/ark-tweet-nlp/blob/master/scripts/show.py"""
